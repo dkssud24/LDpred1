@@ -1,0 +1,13 @@
+pip install plinkio
+pip install ldpred==1.0.10
+
+test용
+
+step2 coord
+ldpred coord --ssf 11_sbp_chr22.txt --gf 11_10000_chr22 --out step2_test_coord.hdf5 --chr CHR --ncol NMISS --pos BP --rs SNP --A1 A1 --A2 A2 --pval P --eff BETA --se SE --eff_type LINREG --match-genomic-pos
+
+step3 gibbs
+ldpred gibbs --cf step2_test_coord.hdf5 --ldr 200 --ldf=NA --N 175000 --out step3_gibbs
+
+step4 score
+ldpred score --rf step3_gibbs --gf 11_10000_chr22 --pf pheno_v2.txt --cov-file cov_v2.txt --pcs-file pc_v2.txt --out stpe4_score_test
